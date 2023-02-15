@@ -6,9 +6,25 @@
 }
 
 .firstInputArea {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
+.input {
+  margin-bottom: 50px;
+}
+
+.treeOutputArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .treeArea ul li p {
   font-size: 20px;
+}
+.addListButton {
+  display: flex;
+  justify-content: center;
+}
+.addListButton button {
+  margin-bottom: 50px;
 }
