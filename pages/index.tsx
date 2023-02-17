@@ -1,29 +1,29 @@
 import style from "../styles/Home.module.css";
 import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/router";
+import { Header } from "./component/header";
+import { useRecoilState } from "recoil";
+import { productNameState, featureListState } from "./component/atoms";
 
 const Home = () => {
+  // ページ移動のための変数
+  const router = useRouter();
+
   // productNameのテキスト入力のための変数
   const [inputProductNameText, setInputProductNameText] = useState<string>("");
 
   // 機能のテキスト入力のための変数
-  const [inputFeatureText, setInputFeatureText] = useState<string>("");
-
-  // 必要な技術のテキスト入力のための変数
-  const [inputTechText, setInputTechText] = useState<string>("");
+  const [inputFeatureText1, setInputFeatureText1] = useState<string>("");
+  const [inputFeatureText2, setInputFeatureText2] = useState<string>("");
+  const [inputFeatureText3, setInputFeatureText3] = useState<string>("");
 
   // 樹形図に記載するproductName名の変数
-  const [ProductNameText, setProductNameText] = useState<string>("ProductName");
+  const [productNameText, setProductNameText] =
+    useRecoilState<string>(productNameState);
 
   // 樹形図に記載する機能リストの配列
-  const [featureList, setFeatureList] = useState<string[]>([
-    "機能１",
-    "機能２",
-  ]);
-
-  const [techList, setTechList] = useState<string[]>([
-    "やるべきこと１",
-    "やるべきこと２",
-  ]);
+  const [featureList, setFeatureList] =
+    useRecoilState<string[]>(featureListState);
 
   // productName用onchange関数
   const onChangeProductNameText = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -31,21 +31,14 @@ const Home = () => {
   };
 
   // 機能用onchange関数
-  const onChangeFeatureText = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputFeatureText(e.target.value);
+  const onChangeFeatureText1 = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputFeatureText1(e.target.value);
   };
-
-  // 必要な技術用onchange関数
-  const onChangeTechText = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputTechText(e.target.value);
+  const onChangeFeatureText2 = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputFeatureText2(e.target.value);
   };
-
-  const onClickAddFeature = () => {
-    alert("機能の追加");
-  };
-
-  const onClickAddTech = () => {
-    alert("必要な技術の追加");
+  const onChangeFeatureText3 = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputFeatureText3(e.target.value);
   };
 
   // 樹形図の作成
@@ -55,101 +48,81 @@ const Home = () => {
 
     // 新しい機能を機能リストの最後尾に格納
     const newfeatureList: Array<string> = [...featureList];
-    newfeatureList.push(inputFeatureText);
+    newfeatureList.push(
+      inputFeatureText1,
+      inputFeatureText2,
+      inputFeatureText3
+    );
     setFeatureList(newfeatureList);
 
-    const newtechList: Array<string> = [...techList];
-    newtechList.push(inputTechText);
-    setTechList(newtechList);
+    router.push({
+      pathname: "/tree",
+      query: { ProductNameText: productNameText, featureList: featureList },
+    });
 
+    // inputの中を空白にする
     setInputProductNameText("");
-    setInputFeatureText("");
-    setInputTechText("");
+    setInputFeatureText1("");
+    setInputFeatureText2("");
+    setInputFeatureText3("");
   };
 
-  console.log(inputProductNameText);
+  console.log(productNameText);
+  console.log(featureList);
 
   return (
-    <>
+    <div className={style.body}>
+      <Header></Header>
+
       <div className={style.inputArea}>
-        <div className={style.firstInputArea}>
-          <div className={`${style.inputProductName} ${style.input}`}>
+        <div className={style.inputContents}>
+          <div className={style.inputProductName}>
             <p>ProductName</p>
             <input
+              className={style.input}
               type="text"
-              placeholder="目標となる制作物を入力"
+              placeholder="目標となる制作物"
               value={inputProductNameText}
               onChange={onChangeProductNameText}
             ></input>
           </div>
 
-          <div className={`${style.inputFeature} ${style.input}`}>
-            <p>機能</p>
-            <input
-              type="text"
-              placeholder="実装したい機能を入力"
-              value={inputFeatureText}
-              onChange={onChangeFeatureText}
-            ></input>
-            <button onClick={onClickAddFeature}>追加</button>
-          </div>
+          <div className={style.inputFeature}>
+            <p>Function</p>
 
-          <div className={`${style.inputTech} ${style.input}`}>
-            <p>必要な知識、技術</p>
-            <select name="featureList">
-              {featureList.map((feature, index) => (
-                <option key={index}>{feature}</option>
-              ))}
-            </select>
-            <div>
+            <div className={style.inputFeatureList}>
               <input
+                className={style.input}
                 type="text"
-                placeholder="必要な技術を入力"
-                value={inputTechText}
-                onChange={onChangeTechText}
+                placeholder="実装したい機能１"
+                value={inputFeatureText1}
+                onChange={onChangeFeatureText1}
               ></input>
-              <button onClick={onClickAddTech}>追加</button>
+              <input
+                className={style.input}
+                type="text"
+                placeholder="実装したい機能２"
+                value={inputFeatureText2}
+                onChange={onChangeFeatureText2}
+              ></input>
+              <input
+                className={style.input}
+                type="text"
+                placeholder="実装したい機能３"
+                value={inputFeatureText3}
+                onChange={onChangeFeatureText3}
+              ></input>
             </div>
           </div>
 
-          <button
-            onClick={onClickCreateTree}
-            className={style.onClickCreateTreeButton}
-          >
-            作成
-          </button>
-        </div>
-
-        <div className={style.treeOutputArea}>
-          <div className={style.treeArea}>
-            <ul>
-              <li>
-                <p>{ProductNameText}</p>
-
-                {/* 機能リストの配列の中に必要な技術リストの配列が入っている多次元配列 */}
-                <ul>
-                  {featureList.map((feature, index) => (
-                    <li key={index}>
-                      <p>{feature}</p>
-                      <ul>
-                        {techList.map((tech, techindex) => (
-                          <li key={techindex}>{tech}</li>
-                        ))}
-                      </ul>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-          </div>
-
-          <div className={style.addListButton}>
-            <button>リストへ追加</button>
+          <div className={style.onClickCreateTreeButton}>
+            <button className={style.button} onClick={onClickCreateTree}>
+              作成
+            </button>
           </div>
         </div>
       </div>
-      <div className="todoList"></div>
-    </>
+    </div>
   );
 };
 

@@ -1,0 +1,17 @@
+.header {
+  height: 15vh;
+  margin: 0;
+}
+
+.header h1 {
+  margin: 0;
+  padding-top: 10px;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  color: rgba(0, 55, 128, 0.526);
+}
+
+.header p {
+  text-align: center;
+  font-size: 15px;
+}
