@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { productNameState, featureListState } from "./component/atoms";
 
 const Tree = () => {
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<number>(0);
 
   // 機能のテキスト入力のための変数
   const [inputFeatureText, setInputFeatureText] = useState<string>("");
@@ -26,8 +26,9 @@ const Tree = () => {
 
   // 樹形図に記載する必要な技術の配列
   const [techList, setTechList] = useState<string[][]>([
-    ["やるべきこと１", "やるべきこと２"],
-    [],
+    ["やるべきこと１の１", "やるべきこと１の２"],
+    ["やるべきこと２の１", "やるべきこと２の２"],
+    ["やるべきこと３の１", "やるべきこと３の２"],
   ]);
 
   // 機能用onchange関数
@@ -40,6 +41,8 @@ const Tree = () => {
     setInputTechText(e.target.value);
   };
 
+  // 機能リストの表示
+
   const onClickAddFeature = () => {
     const newfeatureList: Array<string> = [...featureList];
     newfeatureList.push(inputFeatureText);
@@ -48,17 +51,32 @@ const Tree = () => {
   };
 
   const onClickAddTech = () => {
-    // const newTechList: Array<string> = [...techList];
-    // newTechList.push(inputTechText);
-    // setTechList(newTechList);
-    // setInputTechText("");
+    // 二次元配列の方宣言
+    const newTechList: Array<Array<string>> = [...techList];
+    newTechList.push([]);
+    newTechList[selected].push(inputTechText);
+    setTechList(newTechList);
+    setInputTechText("");
   };
 
   // const handleChange = (e: ChangeEvent<HTMLElement>) => {
   //   setSelected(e.target.value);
   // };
 
-  console.log(selected);
+  // const loop = (index: number) => {
+  //   console.log(index);
+
+  //   return techList[index];
+
+  //   // for (let i: number = 0; i < techList[index].length; i++) {
+  //   //   return techList[index][i];
+  //   // }
+  // };
+
+  console.log(`selected:${selected}`);
+  console.log(`featureList:${featureList}`);
+  console.log(`techList:${techList}`);
+
   return (
     <>
       <Header></Header>
@@ -83,9 +101,10 @@ const Tree = () => {
             <select
               className="featureList"
               value={selected}
-              onChange={(e) => setSelected(e.target.value)}
+              // e.target.valueをnumber型へ変換
+              onChange={(e) => setSelected(Number(e.target.value))}
             >
-              {featureList.map((feature, index) => (
+              {featureList.map((feature, index: number) => (
                 <option key={index} value={index}>
                   {feature}
                 </option>
@@ -109,15 +128,12 @@ const Tree = () => {
               <li>
                 <p>{productNameText}</p>
 
-                {/* 機能リストの配列の中に必要な技術リストの配列が入っている多次元配列 */}
                 <ul>
                   {featureList.map((feature, index) => (
                     <li key={index}>
                       <p>{feature}</p>
                       <ul>
-                        {techList.map((tech, techindex) => (
-                          <li key={techindex}>{tech}</li>
-                        ))}
+                        <li>{techList[index]}</li>
                       </ul>
                     </li>
                   ))}

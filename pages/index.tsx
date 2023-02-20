@@ -67,9 +67,6 @@ const Home = () => {
     setInputFeatureText3("");
   };
 
-  console.log(productNameText);
-  console.log(featureList);
-
   return (
     <div className={style.body}>
       <Header></Header>
