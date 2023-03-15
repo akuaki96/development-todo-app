@@ -25,11 +25,7 @@ const Tree = () => {
   const [featureTarget, setFeatureTarget] = useState<string>("機能を選択");
 
   // 樹形図に記載する必要な技術の配列
-  const [techList, setTechList] = useState<string[][]>([
-    ["やるべきこと１の１", "やるべきこと１の２"],
-    ["やるべきこと２の１", "やるべきこと２の２"],
-    ["やるべきこと３の１", "やるべきこと３の２"],
-  ]);
+  const [techList, setTechList] = useState<string[][]>([[], [], []]);
 
   // 機能用onchange関数
   const onChangeFeatureText = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -53,29 +49,18 @@ const Tree = () => {
   const onClickAddTech = () => {
     // 二次元配列の方宣言
     const newTechList: Array<Array<string>> = [...techList];
-    newTechList.push([]);
+    // 機能リストの数と「技術リストの異次元配列の要素数」の数を一致させる。
+    if (newTechList.length < featureList.length) {
+      newTechList.push([]);
+    }
     newTechList[selected].push(inputTechText);
     setTechList(newTechList);
     setInputTechText("");
   };
 
-  // const handleChange = (e: ChangeEvent<HTMLElement>) => {
-  //   setSelected(e.target.value);
-  // };
-
-  // const loop = (index: number) => {
-  //   console.log(index);
-
-  //   return techList[index];
-
-  //   // for (let i: number = 0; i < techList[index].length; i++) {
-  //   //   return techList[index][i];
-  //   // }
-  // };
-
   console.log(`selected:${selected}`);
-  console.log(`featureList:${featureList}`);
-  console.log(`techList:${techList}`);
+  console.log(featureList);
+  console.log(techList);
 
   return (
     <>
@@ -134,6 +119,11 @@ const Tree = () => {
                       <p>{feature}</p>
                       <ul>
                         <li>{techList[index]}</li>
+                        {/* {(() => {
+                          for (let i = 0; i + 1 < techList.length; i++) {
+                            return <li>{techList[index][i]}</li>;
+                          }
+                        })()} */}
                       </ul>
                     </li>
                   ))}
@@ -144,6 +134,7 @@ const Tree = () => {
 
           <div className={style.addListButton}>
             <button>リストへ追加</button>
+            <label></label>
           </div>
         </div>
       </div>
