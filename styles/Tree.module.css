@@ -21,6 +21,10 @@
 .treeArea ul li p {
   font-size: 20px;
 }
+.featureList {
+  display: flex;
+  flex-direction: column;
+}
 .addListButton {
   display: flex;
   justify-content: center;

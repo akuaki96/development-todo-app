@@ -117,13 +117,10 @@ const Tree = () => {
                   {featureList.map((feature, index) => (
                     <li key={index}>
                       <p>{feature}</p>
-                      <ul>
-                        <li>{techList[index]}</li>
-                        {/* {(() => {
-                          for (let i = 0; i + 1 < techList.length; i++) {
-                            return <li>{techList[index][i]}</li>;
-                          }
-                        })()} */}
+                      <ul className={style.featureList}>
+                        {techList[index]?.map((tech, techIndex) => (
+                          <li key={techIndex}>{tech}</li>
+                        ))}
                       </ul>
                     </li>
                   ))}
