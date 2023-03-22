@@ -1,0 +1,146 @@
+import style from "../styles/FirstInput.module.css";
+import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { newTreeState } from "./component/atoms";
+
+type Feature = {
+  name: string;
+  isOpen: boolean;
+  techList: string[];
+};
+
+type treeList = {
+  productName: string;
+  featureList: Feature[];
+};
+
+const FirstInput = () => {
+  // ページ移動のための変数
+  const router = useRouter();
+
+  const [newTree, setNewTree] = useRecoilState(newTreeState);
+
+  // productNameのテキスト入力のための変数
+  const [inputProductNameText, setInputProductNameText] = useState<string>("");
+
+  // 機能のテキスト入力のための変数
+  const [inputFeatureText1, setInputFeatureText1] = useState<string>("");
+  const [inputFeatureText2, setInputFeatureText2] = useState<string>("");
+  const [inputFeatureText3, setInputFeatureText3] = useState<string>("");
+
+  // 樹形図に記載する機能リストの配列
+  // const [featureList, setFeatureList] =
+  //   useRecoilState<string[]>(featureListState);
+
+  // productName用onchange関数
+  const onChangeProductNameText = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputProductNameText(e.target.value);
+  };
+
+  // 機能用onchange関数
+  const onChangeFeatureText1 = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputFeatureText1(e.target.value);
+  };
+  const onChangeFeatureText2 = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputFeatureText2(e.target.value);
+  };
+  const onChangeFeatureText3 = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputFeatureText3(e.target.value);
+  };
+
+  // 樹形図の作成
+  const onClickCreateTree = () => {
+    router.push({
+      pathname: "/tmp",
+    });
+
+    const newTree: treeList = {
+      productName: inputProductNameText,
+      featureList: [
+        {
+          name: inputFeatureText1,
+          isOpen: false,
+          techList: [],
+        },
+        {
+          name: inputFeatureText2,
+          isOpen: false,
+          techList: [],
+        },
+        {
+          name: inputFeatureText3,
+          isOpen: false,
+          techList: [],
+        },
+      ],
+    };
+
+    // console.log(newTreeList);
+
+    setNewTree(newTree);
+
+    // inputの中を空白にする
+    setInputProductNameText("");
+    setInputFeatureText1("");
+    setInputFeatureText2("");
+    setInputFeatureText3("");
+  };
+
+  // console.log(treeList);
+
+  return (
+    <div className={style.body}>
+      <div className={style.inputArea}>
+        <div className={style.inputContents}>
+          <div className={style.inputProductName}>
+            <p>ProductName</p>
+            <input
+              className={style.input}
+              type="text"
+              placeholder="目標となる制作物"
+              value={inputProductNameText}
+              onChange={onChangeProductNameText}
+            ></input>
+          </div>
+
+          <div className={style.inputFeature}>
+            <p>Function</p>
+
+            <div className={style.inputFeatureList}>
+              <input
+                className={style.input}
+                type="text"
+                placeholder="実装したい機能１"
+                value={inputFeatureText1}
+                onChange={onChangeFeatureText1}
+              ></input>
+              <input
+                className={style.input}
+                type="text"
+                placeholder="実装したい機能２"
+                value={inputFeatureText2}
+                onChange={onChangeFeatureText2}
+              ></input>
+              <input
+                className={style.input}
+                type="text"
+                placeholder="実装したい機能３"
+                value={inputFeatureText3}
+                onChange={onChangeFeatureText3}
+              ></input>
+            </div>
+          </div>
+
+          <div className={style.onClickCreateTreeButton}>
+            <button className={style.button} onClick={onClickCreateTree}>
+              作成
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FirstInput;

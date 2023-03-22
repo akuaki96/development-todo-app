@@ -1,124 +1,54 @@
-import style from "../styles/Home.module.css";
-import { ChangeEvent, useState } from "react";
-import { useRouter } from "next/router";
 import { Header } from "./component/header";
+import style from "../styles/Home.module.css";
+import { SideBar } from "./component/sideBar";
+import { useState } from "react";
+import { featureListState } from "./component/atoms";
 import { useRecoilState } from "recoil";
-import { productNameState, featureListState } from "./component/atoms";
+import { treeListState } from "./component/atoms";
 
 const Home = () => {
-  // ページ移動のための変数
-  const router = useRouter();
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
 
-  // productNameのテキスト入力のための変数
-  const [inputProductNameText, setInputProductNameText] = useState<string>("");
-
-  // 機能のテキスト入力のための変数
-  const [inputFeatureText1, setInputFeatureText1] = useState<string>("");
-  const [inputFeatureText2, setInputFeatureText2] = useState<string>("");
-  const [inputFeatureText3, setInputFeatureText3] = useState<string>("");
-
-  // 樹形図に記載するproductName名の変数
-  const [productNameText, setProductNameText] =
-    useRecoilState<string>(productNameState);
-
-  // 樹形図に記載する機能リストの配列
-  const [featureList, setFeatureList] =
-    useRecoilState<string[]>(featureListState);
-
-  // productName用onchange関数
-  const onChangeProductNameText = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputProductNameText(e.target.value);
-  };
-
-  // 機能用onchange関数
-  const onChangeFeatureText1 = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputFeatureText1(e.target.value);
-  };
-  const onChangeFeatureText2 = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputFeatureText2(e.target.value);
-  };
-  const onChangeFeatureText3 = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputFeatureText3(e.target.value);
-  };
-
-  // 樹形図の作成
-  const onClickCreateTree = () => {
-    // 入力している文字を樹形図のプロダクト名に表示
-    setProductNameText(inputProductNameText);
-
-    // 新しい機能を機能リストの最後尾に格納
-    const newfeatureList: Array<string> = [...featureList];
-    newfeatureList.push(
-      inputFeatureText1,
-      inputFeatureText2,
-      inputFeatureText3
-    );
-    setFeatureList(newfeatureList);
-
-    router.push({
-      pathname: "/tree",
-      query: { ProductNameText: productNameText, featureList: featureList },
-    });
-
-    // inputの中を空白にする
-    setInputProductNameText("");
-    setInputFeatureText1("");
-    setInputFeatureText2("");
-    setInputFeatureText3("");
-  };
+  const [treeList, setTreeList] = useRecoilState(treeListState);
 
   return (
-    <div className={style.body}>
-      <Header></Header>
-
-      <div className={style.inputArea}>
-        <div className={style.inputContents}>
-          <div className={style.inputProductName}>
-            <p>ProductName</p>
-            <input
-              className={style.input}
-              type="text"
-              placeholder="目標となる制作物"
-              value={inputProductNameText}
-              onChange={onChangeProductNameText}
-            ></input>
-          </div>
-
-          <div className={style.inputFeature}>
-            <p>Function</p>
-
-            <div className={style.inputFeatureList}>
-              <input
-                className={style.input}
-                type="text"
-                placeholder="実装したい機能１"
-                value={inputFeatureText1}
-                onChange={onChangeFeatureText1}
-              ></input>
-              <input
-                className={style.input}
-                type="text"
-                placeholder="実装したい機能２"
-                value={inputFeatureText2}
-                onChange={onChangeFeatureText2}
-              ></input>
-              <input
-                className={style.input}
-                type="text"
-                placeholder="実装したい機能３"
-                value={inputFeatureText3}
-                onChange={onChangeFeatureText3}
-              ></input>
-            </div>
-          </div>
-
-          <div className={style.onClickCreateTreeButton}>
-            <button className={style.button} onClick={onClickCreateTree}>
-              作成
-            </button>
-          </div>
+    <div className={style.homeBody}>
+      <Header setIsOpenMenu={setIsOpenMenu} isOpenMenu={isOpenMenu}></Header>
+      <div className={style.main}>
+        <div
+          className={
+            isOpenMenu ? style.trueMenuBarArea : style.falseMenuBarArea
+          }
+        >
+          <SideBar></SideBar>
         </div>
+
+        <div className={style.treeListArea}>
+          <ul>
+            {treeList.map((treeList, index) => (
+              <li key={index} className={style.treeListContents}>
+                <p>{treeList.productName}</p>
+                <ul>
+                  {treeList.featureList.map((feat, featIndex) => (
+                    <li key={featIndex}>
+                      <p>{feat.name}</p>
+                      <ul>
+                        {feat.techList.map((tech, techIndex) => (
+                          <li key={techIndex}>
+                            <p>{tech}</p>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={style.firstInputArea}></div>
       </div>
+      {/* <FirstInput></FirstInput> */}
     </div>
   );
 };

@@ -1,14 +1,59 @@
 .header {
-  height: 15vh;
-  margin: 0;
+  height: 13vh;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* padding-bottom: 10px; */
+  margin-right: 0;
+  /* background-color: #66bea5; */
+  border-bottom: 1px solid rgba(44, 44, 44, 0.4);
+  margin-bottom: 0;
 }
 
-.header h1 {
-  margin: 0;
-  padding-top: 10px;
-  text-align: center;
-  font-family: "Courier New", Courier, monospace;
-  color: rgba(0, 55, 128, 0.526);
+.iconImageContents {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+
+  /* height: ; */
+}
+/* fontAwsomeの大きさを直接指定 */
+.menuBar {
+  height: 30px;
+  width: 30px;
+  opacity: 0.6;
+}
+
+.menuBar:hover {
+  color: #66bea5;
+  transition: 0.1s;
+}
+
+/* メニューバーをボタンで覆い、onClickイベントを反応させる */
+.menuBarButton {
+  padding: 0;
+  margin: 30px;
+  border: none;
+  /* background-color: red; */
+  background-color: white;
+}
+
+.menuBarContents {
+  display: flex;
+  justify-content: center;
+}
+
+.userIcon {
+  height: 50px;
+  width: 50px;
+  opacity: 0.7;
+}
+
+.userIconContents {
+  margin-left: auto;
+  margin-right: 30px;
 }
 
 .header p {
