@@ -12,17 +12,7 @@ type treeList = {
   featureList: Feature[];
 };
 
-// グローバルに扱える変数
-export const productNameState = atom<string>({
-  key: "productNameText",
-  default: "ProductName",
-});
-
-export const featureListState = atom<string[]>({
-  key: "featureList",
-  default: [],
-});
-
+// treeリスト
 export const treeListState = atom<treeList[]>({
   key: "treeListState",
   default: [
@@ -40,9 +30,44 @@ export const treeListState = atom<treeList[]>({
           techList: ["reactt", "typescriptt"],
         },
         {
+          name: "ツイート機能",
+          isOpen: false,
+          techList: ["reacts", "typescripts"],
+        },
+      ],
+    },
+    {
+      productName: "instgram",
+      featureList: [
+        {
+          name: "フォロー機能",
+          isOpen: false,
+          techList: ["reactf", "typescriptf"],
+        },
+        {
+          name: "投稿機能",
+          isOpen: false,
+          techList: ["reactt", "typescriptt"],
+        },
+        {
           name: "ストーリー機能",
           isOpen: false,
           techList: ["reacts", "typescripts"],
+        },
+      ],
+    },
+    {
+      productName: "FaceBook",
+      featureList: [
+        {
+          name: "フォロー機能",
+          isOpen: false,
+          techList: ["reactf", "typescriptf"],
+        },
+        {
+          name: "投稿機能",
+          isOpen: false,
+          techList: ["reactt", "typescriptt"],
         },
       ],
     },

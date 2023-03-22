@@ -28,25 +28,6 @@ const Tmp = () => {
   const [inputFeatureText, setInputFeatureText] = useState<string>("");
   const [inputTechText, setInputTechText] = useState<string>("");
   const [selectedTech, setSelectedTech] = useState<string>("追加先を選択");
-  // const [featureList, setFeatureList] = useState<Feature[]>([
-  //   {
-  //     name: "フォロー機能",
-  //     isOpen: false,
-  //     techList: ["react", "typescript"],
-  //   },
-  //   {
-  //     name: "投稿機能",
-  //     isOpen: false,
-  //     techList: ["react", "typescript"],
-  //   },
-  //   {
-  //     name: "ストーリー機能",
-  //     isOpen: false,
-  //     techList: ["react", "typescript"],
-  //   },
-  // ]);
-
-  // console.log(featureList);
 
   const AddTreeListButton = () => {
     router.push({
