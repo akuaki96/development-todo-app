@@ -1,8 +1,26 @@
+.ul {
+  list-style: none;
+}
+
+.createTreeBody {
+  display: flex;
+  height: 100%;
+  width: 100vw;
+}
+
+.sideMenu {
+  width: 25vw;
+  background-color: #74c29c;
+  height: 100%;
+}
+
 .inputArea {
-  min-height: 400px;
+  height: 100%;
+  width: 75vw;
   background-color: antiquewhite;
   display: flex;
   justify-content: space-around;
+  margin-left: auto;
 }
 
 .firstInputArea {
@@ -14,21 +32,83 @@
 }
 
 .treeOutputArea {
+  /* width: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.treeArea ul li p {
+.productNameText {
   font-size: 20px;
 }
-.featureList {
-  display: flex;
-  flex-direction: column;
+
+.isOpenArrow {
+  font-size: 3vmin;
+  color: #74c29c;
 }
+
+.featureListContents {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+}
+
+.featureListRightContents {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.featureText {
+  min-width: 150px;
+  font-size: 3vmin;
+  margin-left: 20px;
+  /* margin: 0; */
+}
+
+.techListContents {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.techListContents::-webkit-scrollbar {
+  display: none;
+}
+
+.techListRightContents {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.techText {
+  min-width: 150px;
+  font-size: 2vmin;
+}
+
+.listText {
+  margin-bottom: 40px;
+}
+
+.listText button {
+  margin-left: 10px;
+}
+
 .addListButton {
   display: flex;
   justify-content: center;
 }
 .addListButton button {
   margin-bottom: 50px;
+}
+
+.isOpenTrueContents {
+  height: 120px;
+  overflow: auto;
+  transition: height 0.5s ease-in-out;
+}
+
+.isOpenFalseContents {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
 }
