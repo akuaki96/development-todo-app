@@ -1,36 +1,38 @@
 .homeBody {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 }
 
 .main {
   margin: 0;
   display: flex;
-  /* background-color: blue; */
-  height: 74vh;
+  height: 80%;
+  width: 100%;
 }
 
 .falseMenuBarArea {
   position: fixed;
+  z-index: 999;
   left: 0;
   width: 50px;
-  height: 74vh;
+  height: 100%;
   background-color: #468170;
   border-left: 24px solid #468170;
   overflow-x: hidden;
   margin: 0;
-  transition: width 0.3s ease-in-out;
+  transition: width 0.2s ease-in-out;
 }
 
 .trueMenuBarArea {
   position: fixed;
+  z-index: 999;
   left: 0;
   width: 300px;
-  height: 74vh;
+  height: 100%;
   background-color: #74c29c;
   border-left: 24px solid #74c29c;
   margin: 0;
-  transition: width 0.3s ease-in-out;
+  transition: width 0.2s ease-in-out;
   overflow-x: hidden;
   margin: 0;
 }
@@ -38,13 +40,20 @@
 .treeListArea {
   flex: 70%;
   background-color: white;
+  height: 100%;
 }
 
 .firstInputArea {
   flex: 30%;
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
+  height: 100%;
 }
 
 .treeListArea {
-  margin-left: 74px;
+  /* margin-left: 74px; */
+  margin: 50px 100px 0px 200px;
+}
+
+.ul {
+  list-style: none;
 }

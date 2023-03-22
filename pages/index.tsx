@@ -2,14 +2,16 @@ import { Header } from "./component/header";
 import style from "../styles/Home.module.css";
 import { SideBar } from "./component/sideBar";
 import { useState } from "react";
-import { featureListState } from "./component/atoms";
 import { useRecoilState } from "recoil";
 import { treeListState } from "./component/atoms";
+import { TreeList } from "./component/treeList";
 
 const Home = () => {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
 
   const [treeList, setTreeList] = useRecoilState(treeListState);
+
+  const [selected, setSelected] = useState<number>(0);
 
   return (
     <div className={style.homeBody}>
@@ -24,21 +26,19 @@ const Home = () => {
         </div>
 
         <div className={style.treeListArea}>
-          <ul>
-            {treeList.map((treeList, index) => (
-              <li key={index} className={style.treeListContents}>
-                <p>{treeList.productName}</p>
-                <ul>
-                  {treeList.featureList.map((feat, featIndex) => (
-                    <li key={featIndex}>
-                      <p>{feat.name}</p>
-                      <ul>
-                        {feat.techList.map((tech, techIndex) => (
-                          <li key={techIndex}>
-                            <p>{tech}</p>
-                          </li>
-                        ))}
-                      </ul>
+          <TreeList setSelected={setSelected}></TreeList>
+        </div>
+
+        <div className={style.firstInputArea}>
+          <p>{treeList[selected].productName}</p>
+          <ul className={style.ul}>
+            {treeList[selected].featureList.map((feat, featIndex) => (
+              <li key={featIndex}>
+                <p>{feat.name}</p>
+                <ul className={style.ul}>
+                  {feat.techList.map((tech, techIndex) => (
+                    <li key={techIndex}>
+                      <p>{tech}</p>
                     </li>
                   ))}
                 </ul>
@@ -46,7 +46,6 @@ const Home = () => {
             ))}
           </ul>
         </div>
-        <div className={style.firstInputArea}></div>
       </div>
       {/* <FirstInput></FirstInput> */}
     </div>
