@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { newTreeState } from "./component/atoms";
 import { Header } from "./component/header";
 import { SideBar } from "./component/sideBar";
+import { treeListState } from "./component/atoms";
 
 type Feature = {
   name: string;
@@ -20,6 +21,8 @@ type treeList = {
 const FirstInput = () => {
   // ページ移動のための変数
   const router = useRouter();
+
+  const [treeList, setTreeList] = useRecoilState<treeList[]>(treeListState);
 
   const [newTree, setNewTree] = useRecoilState(newTreeState);
 
@@ -87,53 +90,51 @@ const FirstInput = () => {
 
   return (
     <div className={style.body}>
-      {/* <Header setIsOpenMenu={setIsOpenMenu} isOpenMenu={isOpenMenu}></Header>
+      <Header setIsOpenMenu={setIsOpenMenu} isOpenMenu={isOpenMenu}></Header>
 
-      <div
-        className={isOpenMenu ? style.trueMenuBarArea : style.falseMenuBarArea}
-      >
-        <SideBar></SideBar>
-      </div> */}
+      <div className={style.main}>
+        <div
+          className={
+            isOpenMenu ? style.trueMenuBarArea : style.falseMenuBarArea
+          }
+        >
+          <SideBar></SideBar>
+        </div>
 
-      <div className={style.inputArea}>
-        <div className={style.inputContents}>
-          <div className={style.inputProductName}>
-            <p>ProductName</p>
+        <div className={style.inputArea}>
+          <p className={style.inputTitle}>ProductName</p>
+          <input
+            className={style.input}
+            type="text"
+            placeholder="目標となる制作物"
+            value={inputProductNameText}
+            onChange={onChangeProductNameText}
+          ></input>
+
+          <p className={style.inputTitle}>Function</p>
+
+          <div className={style.inputFeatureList}>
             <input
-              className={style.input}
+              className={`${style.input} ${style.featureInput}`}
               type="text"
-              placeholder="目標となる制作物"
-              value={inputProductNameText}
-              onChange={onChangeProductNameText}
+              placeholder="実装したい機能１"
+              value={inputFeatureText1}
+              onChange={onChangeFeatureText1}
             ></input>
-          </div>
-
-          <div className={style.inputFeature}>
-            <p>Function</p>
-
-            <div className={style.inputFeatureList}>
-              <input
-                className={style.input}
-                type="text"
-                placeholder="実装したい機能１"
-                value={inputFeatureText1}
-                onChange={onChangeFeatureText1}
-              ></input>
-              <input
-                className={style.input}
-                type="text"
-                placeholder="実装したい機能２"
-                value={inputFeatureText2}
-                onChange={onChangeFeatureText2}
-              ></input>
-              <input
-                className={style.input}
-                type="text"
-                placeholder="実装したい機能３"
-                value={inputFeatureText3}
-                onChange={onChangeFeatureText3}
-              ></input>
-            </div>
+            <input
+              className={`${style.input} ${style.featureInput}`}
+              type="text"
+              placeholder="実装したい機能２"
+              value={inputFeatureText2}
+              onChange={onChangeFeatureText2}
+            ></input>
+            <input
+              className={`${style.input} ${style.featureInput}`}
+              type="text"
+              placeholder="実装したい機能３"
+              value={inputFeatureText3}
+              onChange={onChangeFeatureText3}
+            ></input>
           </div>
 
           <div className={style.onClickCreateTreeButton}>

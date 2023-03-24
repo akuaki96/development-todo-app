@@ -21,7 +21,7 @@ const Tmp = () => {
   const router = useRouter();
 
   const [treeList, setTreeList] = useRecoilState(treeListState);
-
+  console.log(treeList);
   const [newTree, setNewTree] = useRecoilState(newTreeState);
 
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);

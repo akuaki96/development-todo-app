@@ -48,7 +48,7 @@
 }
 
 .button:hover {
-  color: #66bea5;
+  color: rgba(216, 230, 211, 0.624);
   transition: 0.1s;
 }
 

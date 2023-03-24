@@ -18,7 +18,7 @@
   top: 50;
   left: 0;
   width: 50px;
-  height: 100%;
+  height: 86vh;
   background-color: #468170;
   border-left: 24px solid #468170;
   overflow-x: hidden;
@@ -32,7 +32,7 @@
   left: 0;
   z-index: 999;
   width: 300px;
-  height: 100%;
+  height: 86vh;
   background-color: #74c29c;
   border-left: 24px solid #74c29c;
   margin: 0;
@@ -54,8 +54,8 @@
 
 .treeDetail {
   flex: 30%;
-  background-color: rgba(197, 196, 196, 0.4);
+  background-color: rgba(139, 134, 134, 0.525);
   height: 100%;
-  border-radius: 8px;
+  border-radius: 3px;
   /* border-left: 1.5px solid rgba(44, 44, 44, 0.4); */
 }

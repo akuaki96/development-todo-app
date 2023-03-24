@@ -45,7 +45,6 @@ const Home = () => {
           <TreeDetail selected={selected} treeList={treeList}></TreeDetail>
         </div>
       </div>
-      {/* <FirstInput></FirstInput> */}
     </div>
   );
 };
