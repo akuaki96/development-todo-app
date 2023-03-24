@@ -122,8 +122,8 @@ const Tmp = () => {
                       (v) => v.name === selectedTech
                     );
 
-                    console.log(selectedTech);
-                    console.log(target?.techList);
+                    // console.log(selectedTech);
+                    // console.log(target?.techList);
 
                     if (selectedTech === "追加先を選択") {
                       alert("追加先を入力してください");
@@ -236,16 +236,30 @@ const Tmp = () => {
                                   <button
                                     className={style.techListRightContents}
                                     onClick={() => {
-                                      const newFeatureList = [
-                                        ...newTree.featureList,
-                                      ];
+                                      // const newFeatureList = [
+                                      //   ...newTree.featureList,
+                                      // ];
 
-                                      const newTechList = feature.techList;
+                                      const newTechList = [...feature.techList];
+
+                                      console.log(newTechList);
+                                      console.log(techIndex);
 
                                       newTechList.splice(techIndex, 1);
 
-                                      newFeatureList[index].techList =
-                                        newTechList;
+                                      const newFeatureList: Feature[] =
+                                        newTree.featureList.map(
+                                          (value, newIndex) =>
+                                            index === newIndex
+                                              ? {
+                                                  name: value.name,
+                                                  isOpen: value.isOpen,
+                                                  techList: newTechList,
+                                                }
+                                              : value
+                                        );
+                                      console.log(newFeatureList);
+
                                       setNewTree({
                                         productName: newTree.productName,
                                         featureList: newFeatureList,

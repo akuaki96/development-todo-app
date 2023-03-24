@@ -3,6 +3,8 @@ import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { newTreeState } from "./component/atoms";
+import { Header } from "./component/header";
+import { SideBar } from "./component/sideBar";
 
 type Feature = {
   name: string;
@@ -21,6 +23,8 @@ const FirstInput = () => {
 
   const [newTree, setNewTree] = useRecoilState(newTreeState);
 
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+
   // productNameのテキスト入力のための変数
   const [inputProductNameText, setInputProductNameText] = useState<string>("");
 
@@ -28,10 +32,6 @@ const FirstInput = () => {
   const [inputFeatureText1, setInputFeatureText1] = useState<string>("");
   const [inputFeatureText2, setInputFeatureText2] = useState<string>("");
   const [inputFeatureText3, setInputFeatureText3] = useState<string>("");
-
-  // 樹形図に記載する機能リストの配列
-  // const [featureList, setFeatureList] =
-  //   useRecoilState<string[]>(featureListState);
 
   // productName用onchange関数
   const onChangeProductNameText = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -76,8 +76,6 @@ const FirstInput = () => {
       ],
     };
 
-    // console.log(newTreeList);
-
     setNewTree(newTree);
 
     // inputの中を空白にする
@@ -87,10 +85,16 @@ const FirstInput = () => {
     setInputFeatureText3("");
   };
 
-  // console.log(treeList);
-
   return (
     <div className={style.body}>
+      {/* <Header setIsOpenMenu={setIsOpenMenu} isOpenMenu={isOpenMenu}></Header>
+
+      <div
+        className={isOpenMenu ? style.trueMenuBarArea : style.falseMenuBarArea}
+      >
+        <SideBar></SideBar>
+      </div> */}
+
       <div className={style.inputArea}>
         <div className={style.inputContents}>
           <div className={style.inputProductName}>

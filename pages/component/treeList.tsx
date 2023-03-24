@@ -15,40 +15,43 @@ export const TreeList: FC<Props> = (props) => {
 
   const [treeList, setTreeList] = useRecoilState(treeListState);
   return (
-    <ul className={style.ul}>
-      {treeList.map((value, index) => (
-        <li
-          key={index}
-          className={style.listContent}
-          onClick={() => {
-            setSelected(index);
-          }}
-        >
-          <div className={style.textContent}>
-            <p className={style.productNameText}>{value.productName}</p>
-            <p className={style.subText}>
-              <span>要素数 : </span>
-              {value.featureList.length}
-            </p>
-          </div>
+    <div>
+      <p className={style.listTitle}>目標リスト</p>
+      <ul className={style.ul}>
+        {treeList.map((value, index) => (
+          <li
+            key={index}
+            className={style.listContent}
+            onClick={() => {
+              setSelected(index);
+            }}
+          >
+            <div className={style.textContent}>
+              <p className={style.productNameText}>{value.productName}</p>
+              <p className={style.subText}>
+                <span>要素数 : </span>
+                {value.featureList.length}
+              </p>
+            </div>
 
-          <div className={style.buttonContent}>
-            <button className={style.button}>
-              <FontAwesomeIcon
-                icon={faTrashCan}
-                className={style.icon}
-              ></FontAwesomeIcon>
-            </button>
+            <div className={style.buttonContent}>
+              <button className={style.button}>
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  className={style.icon}
+                ></FontAwesomeIcon>
+              </button>
 
-            <button className={style.button}>
-              <FontAwesomeIcon
-                icon={faPenToSquare}
-                className={style.icon}
-              ></FontAwesomeIcon>
-            </button>
-          </div>
-        </li>
-      ))}
-    </ul>
+              <button className={style.button}>
+                <FontAwesomeIcon
+                  icon={faPenToSquare}
+                  className={style.icon}
+                ></FontAwesomeIcon>
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };

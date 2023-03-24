@@ -1,9 +1,6 @@
 .SideBar {
-  /* border: 3px; */
   height: 100%;
   width: 100%;
-  /* background-color: aqua; */
-  /* background-color: rgba(44, 44, 44, 0.4); */
 }
 
 .SideBarList {
@@ -26,6 +23,7 @@
 
 .row:hover {
   background-color: #467581cf;
+  z-index: -1;
 }
 
 .icon {

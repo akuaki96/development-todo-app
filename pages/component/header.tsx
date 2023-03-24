@@ -12,6 +12,7 @@ type props = {
 };
 export const Header: FC<props> = (props) => {
   const { setIsOpenMenu, isOpenMenu } = props;
+
   const onClickMenuBar = () => {
     setIsOpenMenu(!isOpenMenu);
   };
