@@ -88,6 +88,8 @@ const FirstInput = () => {
     setInputFeatureText3("");
   };
 
+  console.log(treeList);
+
   return (
     <div className={style.body}>
       <Header setIsOpenMenu={setIsOpenMenu} isOpenMenu={isOpenMenu}></Header>
