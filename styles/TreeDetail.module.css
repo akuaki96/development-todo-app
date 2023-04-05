@@ -11,3 +11,10 @@
 .featureContent {
   border-bottom: dashed 1px black;
 }
+
+.noSelectText {
+  text-align: center;
+  margin-top: 20px;
+  color: white;
+  font-size: 20px;
+}

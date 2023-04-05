@@ -1,4 +1,4 @@
-import style from "../../styles/SideBar.module.css";
+import style from "../../../styles/SideBar.module.css";
 import { SideBarData } from "./sideBarData";
 
 export const SideBar = () => {

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import style from "../../styles/Header.module.css";
+import style from "../../../styles/Header.module.css";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";

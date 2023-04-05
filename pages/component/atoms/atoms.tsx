@@ -74,7 +74,7 @@ export const treeListState = atom<treeList[]>({
       ],
     },
   ],
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
 });
 
 // 新しくリストに追加するためのstate

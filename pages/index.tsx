@@ -1,11 +1,12 @@
-import { Header } from "./component/header";
+import { Header } from "./component/header/header";
 import style from "../styles/Home.module.css";
-import { SideBar } from "./component/sideBar";
+import { SideBar } from "./component/sideBar/sideBar";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { treeListState } from "./component/atoms";
+import { treeListState } from "./component/atoms/atoms";
 import { TreeList } from "./component/treeList";
 import { TreeDetail } from "./component/treeDetail";
+
 type Feature = {
   name: string;
   isOpen: boolean;
@@ -22,7 +23,7 @@ const Home = () => {
 
   const [treeList, setTreeList] = useRecoilState<treeList[]>(treeListState);
 
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number | null>(null);
 
   return (
     <div className={style.homeBody}>
@@ -38,7 +39,7 @@ const Home = () => {
         </div>
 
         <div className={style.treeListArea}>
-          <TreeList setSelected={setSelected}></TreeList>
+          <TreeList setSelected={setSelected} selected={selected}></TreeList>
         </div>
 
         <div className={style.treeDetail}>

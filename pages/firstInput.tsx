@@ -2,10 +2,10 @@ import style from "../styles/FirstInput.module.css";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { newTreeState } from "./component/atoms";
-import { Header } from "./component/header";
-import { SideBar } from "./component/sideBar";
-import { treeListState } from "./component/atoms";
+import { newTreeState } from "./component/atoms/atoms";
+import { Header } from "./component/header/header";
+import { SideBar } from "./component/sideBar/sideBar";
+import { treeListState } from "./component/atoms/atoms";
 
 type Feature = {
   name: string;
@@ -54,38 +54,48 @@ const FirstInput = () => {
 
   // 樹形図の作成
   const onClickCreateTree = () => {
-    router.push({
-      pathname: "/tmp",
-    });
+    if (inputProductNameText === "") {
+      alert("目標となる制作物を入力してください");
+    } else if (
+      inputFeatureText1 === "" ||
+      inputFeatureText2 === "" ||
+      inputFeatureText3 === ""
+    ) {
+      alert("実装したい機能を３つ入力してください");
+    } else {
+      router.push({
+        pathname: "/tmp",
+      });
 
-    const newTree: treeList = {
-      productName: inputProductNameText,
-      featureList: [
-        {
-          name: inputFeatureText1,
-          isOpen: false,
-          techList: [],
-        },
-        {
-          name: inputFeatureText2,
-          isOpen: false,
-          techList: [],
-        },
-        {
-          name: inputFeatureText3,
-          isOpen: false,
-          techList: [],
-        },
-      ],
-    };
+      const newTree: treeList = {
+        productName: inputProductNameText,
+        featureList: [
+          {
+            name: inputFeatureText1,
+            isOpen: false,
+            techList: [],
+          },
+          {
+            name: inputFeatureText2,
+            isOpen: false,
+            techList: [],
+          },
+          {
+            name: inputFeatureText3,
+            isOpen: false,
+            techList: [],
+          },
+        ],
+      };
 
-    setNewTree(newTree);
+      setNewTree(newTree);
 
-    // inputの中を空白にする
-    setInputProductNameText("");
-    setInputFeatureText1("");
-    setInputFeatureText2("");
-    setInputFeatureText3("");
+      // inputの中を空白にする
+      setInputProductNameText("");
+      setInputFeatureText1("");
+      setInputFeatureText2("");
+      setInputFeatureText3("");
+    }
   };
 
   console.log(treeList);
