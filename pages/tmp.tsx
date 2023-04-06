@@ -1,10 +1,11 @@
 import style from "../styles/Tree.module.css";
-import { Header } from "./component/header";
+import { Header } from "./component/header/header";
+import { SideBar } from "./component/sideBar/sideBar";
 import { ChangeEvent, useState } from "react";
 import { useRecoilState } from "recoil";
-import { treeListState } from "./component/atoms";
+import { treeListState } from "./component/atoms/atoms";
 import { useRouter } from "next/router";
-import { newTreeState } from "./component/atoms";
+import { newTreeState } from "./component/atoms/atoms";
 
 type Feature = {
   name: string;
@@ -20,14 +21,128 @@ type treeList = {
 const Tmp = () => {
   const router = useRouter();
 
-  const [treeList, setTreeList] = useRecoilState(treeListState);
+  const treeIndex = Number(router.query.treeIndex);
 
+  const [treeList, setTreeList] = useRecoilState(treeListState);
+  // console.log(treeList);
   const [newTree, setNewTree] = useRecoilState(newTreeState);
+  // console.log(newTree);
 
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+
   const [inputFeatureText, setInputFeatureText] = useState<string>("");
+
   const [inputTechText, setInputTechText] = useState<string>("");
+
   const [selectedTech, setSelectedTech] = useState<string>("追加先を選択");
+
+  const onClickArrow = (feature: Feature) => {
+    const newIsOpen = !feature.isOpen;
+
+    const newFeatureList: Feature[] = newTree.featureList.map((feat) =>
+      feat.name === feature.name
+        ? {
+            name: feature.name,
+            isOpen: newIsOpen,
+            techList: feature.techList,
+          }
+        : feat
+    );
+
+    setNewTree({
+      productName: newTree.productName,
+      featureList: newFeatureList,
+    });
+  };
+
+  const onClickAddFeature = () => {
+    // すでにある配列の後ろに追加
+    const newFeatureList: Feature[] = [...newTree.featureList];
+
+    newFeatureList.push({
+      name: inputFeatureText,
+      isOpen: false,
+      techList: [],
+    });
+
+    setNewTree({
+      productName: newTree.productName,
+      featureList: newFeatureList,
+    });
+
+    // inputFeatureTextの初期化
+    setInputFeatureText("");
+  };
+
+  const onClickDeleteFeature = (index: number) => {
+    const newFeatureList = [...newTree.featureList];
+    newFeatureList.splice(index, 1);
+
+    setSelectedTech("追加先を選択");
+
+    setNewTree({
+      productName: newTree.productName,
+      featureList: newFeatureList,
+    });
+  };
+
+  const onClickAddTech = () => {
+    const target = newTree.featureList.find((v) => v.name === selectedTech);
+
+    // console.log(selectedTech);
+    // console.log(target?.techList);
+
+    if (selectedTech === "追加先を選択") {
+      alert("追加先を入力してください");
+    } else {
+      // 存在確認でのif
+      if (target) {
+        const newTechList: string[] = [...target?.techList, inputTechText];
+        // target?.techList.push(inputTechText);
+        // targetには選択されている機能に対するものしか入ってないのでmapでfeatureリストを表示し名前がtargetと一致したら元のものと置き換える
+        const newFeatureList: Feature[] = newTree.featureList.map((feature) =>
+          feature.name === target.name
+            ? {
+                name: feature.name,
+                isOpen: feature.isOpen,
+                techList: newTechList,
+              }
+            : feature
+        );
+        setNewTree({
+          productName: newTree.productName,
+          featureList: newFeatureList,
+        });
+      }
+    }
+    setInputTechText("");
+  };
+
+  const onClickDeleteTech = (
+    feature: Feature,
+    techIndex: number,
+    index: number
+  ) => {
+    const newTechList = [...feature.techList];
+
+    newTechList.splice(techIndex, 1);
+
+    const newFeatureList: Feature[] = newTree.featureList.map(
+      (value, newIndex) =>
+        index === newIndex
+          ? {
+              name: value.name,
+              isOpen: value.isOpen,
+              techList: newTechList,
+            }
+          : value
+    );
+
+    setNewTree({
+      productName: newTree.productName,
+      featureList: newFeatureList,
+    });
+  };
 
   const AddTreeListButton = () => {
     router.push({
@@ -35,26 +150,44 @@ const Tmp = () => {
     });
 
     const newTreeList: treeList[] = [...treeList, newTree];
-    // console.log(newTreeList);
 
     setTreeList(newTreeList);
   };
 
+  const EditTreeListButton = () => {
+    router.push({
+      pathname: "/",
+    });
+
+    const newTreeList: treeList[] = treeList.map((value, index) =>
+      index === treeIndex ? newTree : value
+    );
+
+    setTreeList(newTreeList);
+  };
+
+  console.log(newTree);
+
   return (
-    <>
+    <div className={style.body}>
       <Header setIsOpenMenu={setIsOpenMenu} isOpenMenu={isOpenMenu}></Header>
       {/* {JSON.stringify(featureList)} */}
 
-      <div className={style.createTreeBody}>
-        <div className={`${style.sideMenu}`}>
-          <p>aaaa</p>
+      <div className={style.main}>
+        <div
+          className={
+            isOpenMenu ? style.trueMenuBarArea : style.falseMenuBarArea
+          }
+        >
+          <SideBar></SideBar>
         </div>
 
         <div className={style.inputArea}>
           <div className={`${style.firstInputArea} ${style.contents}`}>
-            <div className={`${style.inputFeature} ${style.input}`}>
+            <div className={style.inputFeature}>
               <p>機能</p>
               <input
+                className={style.input}
                 type="text"
                 placeholder="実装したい機能を入力"
                 value={inputFeatureText}
@@ -63,36 +196,20 @@ const Tmp = () => {
 
               {/* 機能の追加ボタン */}
               <button
-                onClick={() => {
-                  // すでにある配列の後ろに追加
-
-                  const newFeatureList: Feature[] = [...newTree.featureList];
-
-                  newFeatureList.push({
-                    name: inputFeatureText,
-                    isOpen: false,
-                    techList: [],
-                  });
-
-                  setNewTree({
-                    productName: newTree.productName,
-                    featureList: newFeatureList,
-                  });
-
-                  // inputFeatureTextの初期化
-                  setInputFeatureText("");
-                }}
+                className={style.button}
+                onClick={() => onClickAddFeature()}
               >
                 追加
               </button>
             </div>
 
-            <div className={`${style.inputTech} ${style.input}`}>
+            <div className={style.inputTech}>
               <p>必要な知識、技術</p>
 
               {/* 機能リストを表示 */}
               {/* selectタグの中で選択された値を取得 */}
               <select
+                className={style.selectItem}
                 value={selectedTech}
                 onChange={(e) => setSelectedTech(e.target.value)}
               >
@@ -108,6 +225,7 @@ const Tmp = () => {
 
               <div>
                 <input
+                  className={style.input}
                   type="text"
                   placeholder="必要な技術を入力"
                   value={inputTechText}
@@ -116,44 +234,8 @@ const Tmp = () => {
 
                 {/* 必要な知識、技術の追加ボタン */}
                 <button
-                  onClick={() => {
-                    // featureListを1つずつ見ていき、選択された文字列とfeatureList.nameが一致したらtargetに代入
-                    const target = newTree.featureList.find(
-                      (v) => v.name === selectedTech
-                    );
-
-                    console.log(selectedTech);
-                    console.log(target?.techList);
-
-                    if (selectedTech === "追加先を選択") {
-                      alert("追加先を入力してください");
-                    } else {
-                      // 存在確認でのif
-                      if (target) {
-                        const newTechList: string[] = [
-                          ...target?.techList,
-                          inputTechText,
-                        ];
-                        // target?.techList.push(inputTechText);
-                        // targetには選択されている機能に対するものしか入ってないのでmapでfeatureリストを表示し名前がtargetと一致したら元のものと置き換える
-                        const newFeatureList: Feature[] =
-                          newTree.featureList.map((feature) =>
-                            feature.name === target.name
-                              ? {
-                                  name: feature.name,
-                                  isOpen: feature.isOpen,
-                                  techList: newTechList,
-                                }
-                              : feature
-                          );
-                        setNewTree({
-                          productName: newTree.productName,
-                          featureList: newFeatureList,
-                        });
-                      }
-                    }
-                    setInputTechText("");
-                  }}
+                  className={style.button}
+                  onClick={() => onClickAddTech()}
                 >
                   追加
                 </button>
@@ -163,7 +245,7 @@ const Tmp = () => {
 
           <div className={`${style.treeOutputArea} ${style.contents}`}>
             <div className={style.treeArea}>
-              <ul>
+              <ul className={style.ul}>
                 <li>
                   {/* <p>{productNameText}</p> */}
                   <p className={style.productNameText}>{newTree.productName}</p>
@@ -175,25 +257,7 @@ const Tmp = () => {
                         <div className={style.featureListContents}>
                           <p
                             className={style.isOpenArrow}
-                            onClick={() => {
-                              const newIsOpen = !feature.isOpen;
-
-                              const newFeatureList: Feature[] =
-                                newTree.featureList.map((feat) =>
-                                  feat.name === feature.name
-                                    ? {
-                                        name: feature.name,
-                                        isOpen: newIsOpen,
-                                        techList: feature.techList,
-                                      }
-                                    : feat
-                                );
-
-                              setNewTree({
-                                productName: newTree.productName,
-                                featureList: newFeatureList,
-                              });
-                            }}
+                            onClick={() => onClickArrow(feature)}
                           >
                             {newTree.featureList[index].isOpen ? "∨" : ">"}
                           </p>
@@ -201,18 +265,8 @@ const Tmp = () => {
                           <p className={style.featureText}>{feature.name}</p>
 
                           <button
-                            className={style.featureListRightContents}
-                            onClick={() => {
-                              const newFeatureList = [...newTree.featureList];
-                              newFeatureList.splice(index, 1);
-
-                              setSelectedTech("追加先を選択");
-
-                              setNewTree({
-                                productName: newTree.productName,
-                                featureList: newFeatureList,
-                              });
-                            }}
+                            className={style.button}
+                            onClick={() => onClickDeleteFeature(index)}
                           >
                             削除
                           </button>
@@ -234,23 +288,14 @@ const Tmp = () => {
                                 <div className={style.techListContents}>
                                   <p className={style.techText}>{tech}</p>
                                   <button
-                                    className={style.techListRightContents}
-                                    onClick={() => {
-                                      const newFeatureList = [
-                                        ...newTree.featureList,
-                                      ];
-
-                                      const newTechList = feature.techList;
-
-                                      newTechList.splice(techIndex, 1);
-
-                                      newFeatureList[index].techList =
-                                        newTechList;
-                                      setNewTree({
-                                        productName: newTree.productName,
-                                        featureList: newFeatureList,
-                                      });
-                                    }}
+                                    className={`${style.techListRightContents} ${style.button}`}
+                                    onClick={() =>
+                                      onClickDeleteTech(
+                                        feature,
+                                        techIndex,
+                                        index
+                                      )
+                                    }
                                   >
                                     削除
                                   </button>
@@ -264,13 +309,21 @@ const Tmp = () => {
                   </ul>
                 </li>
               </ul>
-              <button onClick={AddTreeListButton}>リストへ追加</button>
+              {/* {document.referrer === "/" ? (
+                <button onClick={EditTreeListButton}>編集完了</button>
+              ) : ( */}
+              <button
+                className={`${style.AddListButton} ${style.button}`}
+                onClick={AddTreeListButton}
+              >
+                リストへ追加
+              </button>
+              {/* )} */}
             </div>
           </div>
         </div>
-        <div className="todoList"></div>
       </div>
-    </>
+    </div>
   );
 };
 

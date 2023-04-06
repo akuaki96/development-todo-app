@@ -1,3 +1,11 @@
+.listTitle {
+  text-align: center;
+  font-size: 30px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  color: rgb(81, 107, 84);
+  letter-spacing: 2px;
+}
+
 .ul {
   list-style: none;
   margin: 0;
@@ -10,12 +18,15 @@
   align-items: flex-start;
 }
 
-.listContent:hover {
+/* .listContent:hover {
   background-color: rgba(44, 44, 44, 0.4);
-}
 
-/* .textContent {
+  z-index: 999;
 } */
+
+.listContent:hover .button {
+  background-color: rgba(44, 44, 44, 0);
+}
 
 .buttonContent {
   margin-left: auto;
@@ -33,7 +44,7 @@
 }
 
 .button:hover {
-  color: #66bea5;
+  color: rgba(128, 215, 96, 0.624);
   transition: 0.1s;
 }
 
@@ -47,11 +58,17 @@
 .productNameText {
   padding-left: 20px;
   margin: 0;
-  color: rgb(49, 65, 51);
-  font-size: 40px;
+  color: rgb(81, 107, 84);
+  font-size: 45px;
   opacity: 0.9;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   letter-spacing: 3px;
+}
+
+.productNameText:hover {
+  color: rgb(26, 34, 27);
+  transition: 0.1s;
+  cursor: pointer;
 }
 
 .subText {

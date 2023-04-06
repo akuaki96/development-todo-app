@@ -1,5 +1,40 @@
+.main {
+  height: 86vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.falseMenuBarArea {
+  position: absolute;
+  z-index: 999;
+  left: 0;
+  width: 50px;
+  height: 86vh;
+  background-color: #468170;
+  border-left: 24px solid #468170;
+  overflow-x: hidden;
+  margin: 0;
+  transition: width 0.2s ease-in-out;
+}
+
+.trueMenuBarArea {
+  position: absolute;
+  left: 0;
+  z-index: 999;
+  width: 300px;
+  height: 86vh;
+  background-color: #74c29c;
+  border-left: 24px solid #74c29c;
+  margin: 0;
+  transition: width 0.2s ease-in-out;
+  overflow-x: hidden;
+  margin: 0;
+}
+
 .ul {
   list-style: none;
+  padding: 0;
 }
 
 .createTreeBody {
@@ -8,27 +43,46 @@
   width: 100vw;
 }
 
-.sideMenu {
-  width: 25vw;
-  background-color: #74c29c;
-  height: 100%;
-}
-
 .inputArea {
   height: 100%;
-  width: 75vw;
-  background-color: antiquewhite;
+  width: 100%;
+  background-color: #757d755a;
   display: flex;
   justify-content: space-around;
-  margin-left: auto;
 }
 
 .firstInputArea {
   margin-bottom: 50px;
 }
 
-.input {
+.inputFeature {
   margin-bottom: 50px;
+}
+
+.selectItem {
+  margin-bottom: 10px;
+}
+
+/* inputタグ全般デザイン */
+.input {
+  outline: none;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+/* buttonデザイン */
+.button {
+  padding: 5px 7px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.button:hover {
+  background-color: #74c29c;
+  color: rgba(255, 255, 255, 0.753);
 }
 
 .treeOutputArea {
@@ -39,11 +93,13 @@
 }
 .productNameText {
   font-size: 20px;
+  color: white;
+  list-style: none;
 }
 
 .isOpenArrow {
   font-size: 3vmin;
-  color: #74c29c;
+  color: white;
 }
 
 .featureListContents {
@@ -77,7 +133,6 @@
 
 .techListRightContents {
   margin-left: auto;
-  margin-right: 10px;
 }
 
 .techText {
@@ -96,9 +151,6 @@
 .addListButton {
   display: flex;
   justify-content: center;
-}
-.addListButton button {
-  margin-bottom: 50px;
 }
 
 .isOpenTrueContents {
