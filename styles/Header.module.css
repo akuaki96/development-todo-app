@@ -1,26 +1,23 @@
 .header {
-  /* background-color: #468170; */
+  z-index: 999;
+  position: fixed;
+  top: 0;
   height: 13vh;
   width: 100%;
-  /* width: 100vw; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* padding-bottom: 10px; */
-  margin-right: 0;
-  /* background-color: #66bea5; */
+  margin: 0;
   border-bottom: 1.5px solid rgba(44, 44, 44, 0.4);
-  margin-bottom: 0;
+  background-color: white;
 }
 
 .iconImageContents {
-  height: 100%;
-  box-sizing: border-box;
   display: flex;
+  height: 100%;
   align-items: center;
-
-  /* height: ; */
 }
+
 /* fontAwsomeの大きさを直接指定 */
 .menuBar {
   height: 30px;
@@ -61,4 +58,24 @@
 .header p {
   text-align: center;
   font-size: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .iconImageContents > img {
+    height: 70px;
+    width: 130px;
+  }
+  .menuBar {
+    height: 25px;
+    width: 25px;
+  }
+
+  .userIcon {
+    height: 43px;
+    width: 43px;
+  }
+
+  .userIconContents {
+    margin-right: 15px;
+  }
 }

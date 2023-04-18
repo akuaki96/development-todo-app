@@ -22,7 +22,8 @@
 }
 
 .row:hover {
-  background-color: #467581cf;
+  /* background-color: #467581cf; */
+  background-color: #5aa37ff0;
   z-index: -1;
 }
 

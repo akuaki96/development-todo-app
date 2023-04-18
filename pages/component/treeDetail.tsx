@@ -34,7 +34,7 @@ export const TreeDetail: FC<Props> = (props) => {
                 <ul className={style.ul}>
                   {feat.techList.map((tech, techIndex) => (
                     <li key={techIndex}>
-                      <p>{tech}</p>
+                      <p className={style.techList}>{tech}</p>
                     </li>
                   ))}
                 </ul>

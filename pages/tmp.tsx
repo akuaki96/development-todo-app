@@ -6,6 +6,8 @@ import { useRecoilState } from "recoil";
 import { treeListState } from "./component/atoms/atoms";
 import { useRouter } from "next/router";
 import { newTreeState } from "./component/atoms/atoms";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 type Feature = {
   name: string;
@@ -185,7 +187,7 @@ const Tmp = () => {
         <div className={style.inputArea}>
           <div className={`${style.firstInputArea} ${style.contents}`}>
             <div className={style.inputFeature}>
-              <p>機能</p>
+              <p className={style.addFeatureTitle}>機能の追加</p>
               <input
                 className={style.input}
                 type="text"
@@ -204,7 +206,7 @@ const Tmp = () => {
             </div>
 
             <div className={style.inputTech}>
-              <p>必要な知識、技術</p>
+              <p className={style.addTechTitle}>必要な知識、技術の追加</p>
 
               {/* 機能リストを表示 */}
               {/* selectタグの中で選択された値を取得 */}
@@ -259,7 +261,16 @@ const Tmp = () => {
                             className={style.isOpenArrow}
                             onClick={() => onClickArrow(feature)}
                           >
-                            {newTree.featureList[index].isOpen ? "∨" : ">"}
+                            {newTree.featureList[index].isOpen ? (
+                              <FontAwesomeIcon
+                                icon={faCaretDown}
+                              ></FontAwesomeIcon>
+                            ) : (
+                              <FontAwesomeIcon
+                                icon={faCaretDown}
+                                rotation={270}
+                              ></FontAwesomeIcon>
+                            )}
                           </p>
 
                           <p className={style.featureText}>{feature.name}</p>
@@ -288,7 +299,7 @@ const Tmp = () => {
                                 <div className={style.techListContents}>
                                   <p className={style.techText}>{tech}</p>
                                   <button
-                                    className={`${style.techListRightContents} ${style.button}`}
+                                    className={`${style.techDeleteButon} ${style.button}`}
                                     onClick={() =>
                                       onClickDeleteTech(
                                         feature,
