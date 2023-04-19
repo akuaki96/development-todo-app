@@ -1,5 +1,5 @@
 .main {
-  min-height: 86vh;
+  /* min-height: 86vh; */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -46,7 +46,7 @@
 }
 
 .inputArea {
-  height: 100%;
+  min-height: 87vh;
   width: 100%;
   background-color: #757d755a;
   /* background-color: #272c275a; */
@@ -144,18 +144,25 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .techListContents::-webkit-scrollbar {
   display: none;
 }
 
+.techListArea {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .techDeleteButon {
-  margin: auto;
+  margin-left: auto;
 }
 
 .techText {
-  min-width: 150px;
+  /* width: 150px; */
   font-size: 2vmin;
 }
 
@@ -173,8 +180,8 @@
 }
 
 .isOpenTrueContents {
-  height: 120px;
-  transition: height 0.4s ease-in-out;
+  min-height: 50px;
+  /* transition: all 0.4s ease-in-out; */
   overflow-y: auto;
 }
 .isOpenTrueContents::-webkit-scrollbar {
@@ -195,5 +202,80 @@
   .falseMenuBarArea {
     width: 0px;
     transition: width 0.2s ease-in-out;
+  }
+
+  .inputArea {
+    display: block;
+    min-height: 87vh;
+  }
+
+  .inputFeature {
+    text-align: center;
+  }
+
+  .addFeatureTitle {
+    font-size: 20px;
+    /* text-align: center; */
+  }
+  .firstInputArea {
+    margin-bottom: 0px;
+  }
+
+  .addTechTitle {
+    font-size: 20px;
+  }
+
+  .inputTech {
+    text-align: center;
+    margin-top: 70px;
+  }
+
+  .selectItem {
+    margin-bottom: 20px;
+    padding: 0 50px 0 0;
+  }
+
+  .productNameText {
+    font-size: 30px;
+    text-align: center;
+    list-style: none;
+  }
+
+  .featureListContents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+  }
+
+  .techListContents {
+    justify-content: center;
+    margin: 20px 0;
+  }
+  .techListArea {
+    width: 30%;
+    display: flex;
+  }
+
+  .techDeleteButon {
+    margin-left: auto;
+  }
+
+  .AddListButtonContent {
+    width: 100%;
+    text-align: center;
+  }
+
+  .button {
+    padding: 3px 5px;
+    /* font-size: 30%; */
+    border-radius: 5px;
+    outline: none;
+    border: none;
+  }
+  .button:hover {
+    background-color: #74c29c;
+    background-color: #2c2c2ccf;
+    color: rgb(255, 255, 255);
   }
 }

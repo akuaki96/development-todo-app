@@ -297,19 +297,21 @@ const Tmp = () => {
                             {feature.techList.map((tech, techIndex) => (
                               <li key={techIndex}>
                                 <div className={style.techListContents}>
-                                  <p className={style.techText}>{tech}</p>
-                                  <button
-                                    className={`${style.techDeleteButon} ${style.button}`}
-                                    onClick={() =>
-                                      onClickDeleteTech(
-                                        feature,
-                                        techIndex,
-                                        index
-                                      )
-                                    }
-                                  >
-                                    削除
-                                  </button>
+                                  <div className={style.techListArea}>
+                                    <p className={style.techText}>{tech}</p>
+                                    <button
+                                      className={`${style.techDeleteButon} ${style.button}`}
+                                      onClick={() =>
+                                        onClickDeleteTech(
+                                          feature,
+                                          techIndex,
+                                          index
+                                        )
+                                      }
+                                    >
+                                      削除
+                                    </button>
+                                  </div>
                                 </div>
                               </li>
                             ))}
@@ -323,12 +325,15 @@ const Tmp = () => {
               {/* {document.referrer === "/" ? (
                 <button onClick={EditTreeListButton}>編集完了</button>
               ) : ( */}
-              <button
-                className={`${style.AddListButton} ${style.button}`}
-                onClick={AddTreeListButton}
-              >
-                リストへ追加
-              </button>
+
+              <div className={style.AddListButtonContent}>
+                <button
+                  className={`${style.AddListButton} ${style.button}`}
+                  onClick={AddTreeListButton}
+                >
+                  リストへ追加
+                </button>
+              </div>
               {/* )} */}
             </div>
           </div>
