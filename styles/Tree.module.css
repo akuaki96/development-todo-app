@@ -1,16 +1,18 @@
 .main {
-  height: 86vh;
+  min-height: 86vh;
   width: 100%;
   display: flex;
   justify-content: center;
+  margin: 13vh 0 0;
 }
 
 .falseMenuBarArea {
-  position: absolute;
+  position: fixed;
   z-index: 999;
+  top: 13vh;
   left: 0;
   width: 50px;
-  height: 86vh;
+  height: 87vh;
   background-color: #468170;
   border-left: 24px solid #468170;
   overflow-x: hidden;
@@ -19,17 +21,17 @@
 }
 
 .trueMenuBarArea {
-  position: absolute;
+  position: fixed;
+  top: 13vh;
   left: 0;
   z-index: 999;
   width: 300px;
-  height: 86vh;
-  background-color: #74c29c;
-  border-left: 24px solid #74c29c;
+  height: 87vh;
+  background-color: #74c29ce5;
+  border-left: 24px solid #74c29cc9;
   margin: 0;
   transition: width 0.2s ease-in-out;
   overflow-x: hidden;
-  margin: 0;
 }
 
 .ul {
@@ -47,8 +49,19 @@
   height: 100%;
   width: 100%;
   background-color: #757d755a;
+  /* background-color: #272c275a; */
   display: flex;
   justify-content: space-around;
+}
+
+.addFeatureTitle {
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+}
+
+.addTechTitle {
+  font-size: 25px;
+  color: rgb(0, 0, 0);
 }
 
 .firstInputArea {
@@ -59,8 +72,12 @@
   margin-bottom: 50px;
 }
 
+/* 選択のデザイン */
 .selectItem {
   margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: rgba(221, 221, 221, 0.877);
+  outline: none;
 }
 
 /* inputタグ全般デザイン */
@@ -70,6 +87,7 @@
   border: none;
   border-radius: 5px;
   margin-right: 5px;
+  background-color: rgba(221, 221, 221, 0.877);
 }
 
 /* buttonデザイン */
@@ -79,10 +97,10 @@
   outline: none;
   border: none;
 }
-
 .button:hover {
   background-color: #74c29c;
-  color: rgba(255, 255, 255, 0.753);
+  background-color: #2c2c2ccf;
+  color: rgb(255, 255, 255);
 }
 
 .treeOutputArea {
@@ -92,14 +110,15 @@
   justify-content: space-between;
 }
 .productNameText {
-  font-size: 20px;
-  color: white;
+  font-size: 40px;
+  color: rgb(0, 0, 0);
   list-style: none;
 }
 
 .isOpenArrow {
   font-size: 3vmin;
   color: white;
+  color: rgb(0, 0, 0);
 }
 
 .featureListContents {
@@ -131,8 +150,8 @@
   display: none;
 }
 
-.techListRightContents {
-  margin-left: auto;
+.techDeleteButon {
+  margin: auto;
 }
 
 .techText {
@@ -155,12 +174,26 @@
 
 .isOpenTrueContents {
   height: 120px;
-  overflow: auto;
-  transition: height 0.5s ease-in-out;
+  transition: height 0.4s ease-in-out;
+  overflow-y: auto;
+}
+.isOpenTrueContents::-webkit-scrollbar {
+  width: 5px;
+}
+
+.isOpenTrueContents::-webkit-scrollbar-thumb {
+  background: #1415144a;
 }
 
 .isOpenFalseContents {
   height: 0px;
   overflow: hidden;
-  transition: height 0.5s ease-in-out;
+  transition: height 0.4s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .falseMenuBarArea {
+    width: 0px;
+    transition: width 0.2s ease-in-out;
+  }
 }
